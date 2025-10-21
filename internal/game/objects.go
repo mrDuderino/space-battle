@@ -15,6 +15,13 @@ func NewSpaceship(x, y, angle, velocity, angularVelocity float64) *Spaceship {
 	}
 }
 
+func (s *Spaceship) GetProperty(name string) interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.properties[name]
+}
+
 func (s *Spaceship) SetProperty(name string, value interface{}) {
 	if s != nil {
 		s.properties[name] = value
