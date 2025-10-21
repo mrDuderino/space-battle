@@ -82,3 +82,18 @@ func (a *IRotatingObjectAdapter) GetAngularVelocity() float64 {
 func (a *IRotatingObjectAdapter) SetAngle(angle float64) {
 	a.item.SetProperty("angle", angle)
 }
+
+// Движение по прямой
+func (a *IMovingObjectAdapter) Move() {
+	x, y := a.GetLocation()
+	vx, vy := a.GetVelocity()
+	a.SetLocation(x+vx, y+vy)
+}
+
+// Поворот объекта на один шаг (угловая скорость - это градусы на шаг)
+func (a *IRotatingObjectAdapter) Rotate() {
+	currentAngle := a.GetAngle()
+	angularVelocity := a.GetAngularVelocity()
+	newAngle := currentAngle + angularVelocity
+	a.SetAngle(newAngle)
+}
