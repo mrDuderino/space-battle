@@ -75,8 +75,11 @@ func TestMovementWithDifferentVectors(t *testing.T) {
 			adapter.Move()
 
 			x, y := adapter.GetLocation()
-			assert.InEpsilon(t, tt.expectedX, x, 0.001)
-			assert.InEpsilon(t, tt.expectedY, y, 0.001)
+			//assert.InEpsilon(t, tt.expectedX, x, 0.001)
+			//assert.InEpsilon(t, tt.expectedY, y, 0.001)
+
+			assert.InDelta(t, tt.expectedX, x, 0.0000001, "X координата не совпадает")
+			assert.InDelta(t, tt.expectedY, y, 0.0000001, "Y координата не совпадает")
 		})
 	}
 }
