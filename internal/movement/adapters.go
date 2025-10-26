@@ -95,5 +95,12 @@ func (a *IRotatingObjectAdapter) Rotate() {
 	currentAngle := a.GetAngle()
 	angularVelocity := a.GetAngularVelocity()
 	newAngle := currentAngle + angularVelocity
+
+	// Нормализуем угол в диапазон [0, 360)
+	newAngle = math.Mod(newAngle, 360)
+	if newAngle < 0 {
+		newAngle += 360
+	}
+
 	a.SetAngle(newAngle)
 }

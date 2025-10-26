@@ -28,3 +28,55 @@ func TestMovementFrom12_5To5_8(t *testing.T) {
 	assert.InEpsilon(t, 5.0, x, 0.001)
 	assert.InEpsilon(t, 8.0, y, 0.001)
 }
+
+func TestMovementWithDifferentVectors(t *testing.T) {
+	tests := []struct {
+		name      string
+		angle     float64
+		velocity  float64
+		expectedX float64
+		expectedY float64
+	}{
+		{
+			name:      "move right",
+			angle:     0,
+			velocity:  5,
+			expectedX: 5,
+			expectedY: 0,
+		},
+		{
+			name:      "move up",
+			angle:     90,
+			velocity:  5,
+			expectedX: 0,
+			expectedY: 5,
+		},
+		{
+			name:      "move left",
+			angle:     180,
+			velocity:  5,
+			expectedX: -5,
+			expectedY: 0,
+		},
+		{
+			name:      "move down",
+			angle:     270,
+			velocity:  5,
+			expectedX: 0,
+			expectedY: -5,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			ship := game.NewSpaceship(0, 0, tt.angle, tt.velocity, 0)
+			adapter := NewIMovingObjectAdapter(ship)
+
+			adapter.Move()
+
+			x, y := adapter.GetLocation()
+			assert.InEpsilon(t, tt.expectedX, x, 0.001)
+			assert.InEpsilon(t, tt.expectedY, y, 0.001)
+		})
+	}
+}
